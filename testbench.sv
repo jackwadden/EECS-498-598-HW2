@@ -30,15 +30,15 @@ module testbench();
    logic [`DATA_WIDTH-1:0] result;    
 
    // instantiate accelerator
-    edit_distance ed(.clk(clk),
-    .rst(rst),
-    .query(query),
-    .reference(reference),
-    .reference_length(reference_length),
-    .start(start),
-    .result(result),
-    .done(done));   
-    
+   edit_distance ed(.clk(clk),
+                    .rst(rst),
+                    .query(query),
+                    .reference(reference),
+                    .reference_length(reference_length),
+                    .start(start),
+                    .result(result),
+                    .done(done));   
+   
 
    /////////////////////////
    //  Helper Tasks
@@ -56,8 +56,8 @@ module testbench();
       // reset edit distance accelerator
       rst = 1'b1;
       @(posedge clk)
-      @(posedge clk)
-      rst = 1'b0;
+        @(posedge clk)
+          rst = 1'b0;
       
       // start the accelerator!
       start = 1'b1;
@@ -65,15 +65,15 @@ module testbench();
       
       // Call your own verification task here if you please
       /*
-      software_edit_distance(.clk(clk),
-                  .rst(rst),
-                  .start(start),
-                  .query(query),
-                  .reference(reference),
-                  .reference_length(reference_length),
-                  .done(done),
-                  .result(result));
-      */
+       software_edit_distance(.clk(clk),
+       .rst(rst),
+       .start(start),
+       .query(query),
+       .reference(reference),
+       .reference_length(reference_length),
+       .done(done),
+       .result(result));
+       */
       
       // wait for test to finish
       while(done == 1'b0) begin
@@ -92,7 +92,7 @@ module testbench();
    
    always begin
       #5
-      clk = ~clk;
+        clk = ~clk;
    end
    
 
@@ -109,18 +109,18 @@ module testbench();
       
       #10
          
-      // reset for two clock cycles
-      @(posedge clk)
-      @(posedge clk)
+        // reset for two clock cycles
+        @(posedge clk)
+          @(posedge clk)
 
-      rst = 1'b0;
+            rst = 1'b0;
       start = 1'b1;
       
       @(posedge clk)
-      @(posedge clk)
+        @(posedge clk)
       
       
-      $display("////////////////////////////////////////////////");
+          $display("////////////////////////////////////////////////");
       $display("//          Running HW2 Testbench             //");
       $display("////////////////////////////////////////////////");
       run_test("Exact Match", 
@@ -164,7 +164,7 @@ module testbench();
                "CTGGTCCAACTGTATTAAGATAAATTAAGCACGGGGCCGTCTCTGCTGAAGTCGCCCTGTGGTTGGTCAGGTAGCTAACTTACGGTCGGCAGGAGTCTG", 
                99, 
                2);
-               
+      
       run_test("1 Insertion 1 Deletion", 
                "CTGGTCCAACTGTATTAAGATAAATTAAGCGACGGGGCCGTCTCTGCTGAAGTCGCCCTGTGGTTGGTCAAGGTAGCTAACTTACGGTCGGCAGGAGTCTG", 
                "CTGGTCCAACTGTATTAAGATGAAATTAAGCGACGGGGCCGTCTCTGCTGAAGTCGCCCTGTGGTTGGTCAAGGTAGCTAACTTACGGTCGGCGGAGTCTG", 
@@ -182,13 +182,13 @@ module testbench();
                "TTAAACACTACCAGTACTGAGCGGATTGTAACGAGACAGGGAGCATTGCCAGAGACAGATCCCGGCTTCGAGCGATCTATCGTCTATTGCAATAGATAGAC", 
                101, 
                58); 
-               
+      
       run_test("1 Long Reference ", 
                "TGATGATCCAGGGGGCTGCATAATTAACTCAGGCTCTTATTTTATAAGTGATAAGTGCTGGTATCCTAGATAGGCCTGGTCCCAATATCTCTTCGCGCAGC", 
                "TGATGATCCAGGGGGCTGCATAATTAACTCAGGCTCTTATTTTATAAGTGATAAGTGCTGGTATCCTAGATAGGCCTGGTCCCAATATCTCTTCGCGCAGCTGATGATCCAGGGGGCTGCATAATTAACTCAGGCTCTTATTTTATAAGTGATAAGTGCTGGTATCCTAGATAGGCCTGGTCCCAATATCTCTTCGCGCAGC", 
                202, 
                101); 
-               
+      
       run_test("2 Long Reference ", 
                "TTAAACACTACCAGTACTGAGCGGATTGTAACGAGACAGGGAGCATTGCCAGAGACAGATCCCGGCTTCGAGCGATCTATCGTCTATTGCAATAGATAGAC", 
                "TGATGATCCAGGGGGCTGCATAATTAACTCAGGCTCTTATTTTATAAGTGATAAGTGCTGGTATCCTAGATAGGCCTGGTCCCAATATCTCTTCGCGCAGCTGATGATCCAGGGGGCTGCATAATTAACTCAGGCTCTTATTTTATAAGTGATAAGTGCTGGTATCCTAGATAGGCCTGGTCCCAATATCTCTTCGCGCAGC", 
